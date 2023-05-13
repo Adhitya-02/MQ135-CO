@@ -26,9 +26,9 @@ v1.0 - First release
 /// http://davidegironi.blogspot.com/2014/01/cheap-co2-meter-using-mq135-sensor-with.html
 /// https://hackaday.io/project/3475-sniffing-trinket/log/12363-mq135-arduino-library
 
-/// Parameters for calculating ppm of CO2 from sensor resistance
-#define PARA 116.6020682
-#define PARB 2.769034857
+/// Parameters for calculating ppm of CO from sensor resistance
+#define PARA 605.18
+#define PARB 3.937
 
 /// Parameters to model temperature and humidity dependence
 #define CORA .00035
