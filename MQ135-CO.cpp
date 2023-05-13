@@ -14,7 +14,7 @@ v1.0 - First release
 */
 /**************************************************************************/
 
-#include "MQ135.h"
+#include "MQ135-CO.h"
 
 /**************************************************************************/
 /*!
@@ -26,7 +26,7 @@ v1.0 - First release
 */
 /**************************************************************************/
 
-MQ135::MQ135(uint8_t pin, float rzero, float rload) {
+MQ135-CO::MQ135-CO(uint8_t pin, float rzero, float rload) {
   _pin = pin;
   _rzero = rzero;
   _rload = rload;
@@ -42,7 +42,7 @@ MQ135::MQ135(uint8_t pin, float rzero, float rload) {
 @return The calculated correction factor
 */
 /**************************************************************************/
-float MQ135::getCorrectionFactor(float t, float h) {
+float MQ135-CO::getCorrectionFactor(float t, float h) {
     // Linearization of the temperature dependency curve under and above 20 degree C
     // below 20degC: fact = a * t * t - b * t - (h - 33) * d
     // above 20degC: fact = a * t + b * h + c
@@ -63,7 +63,7 @@ float MQ135::getCorrectionFactor(float t, float h) {
 @return The sensor resistance in kOhm
 */
 /**************************************************************************/
-float MQ135::getResistance() {
+float MQ135-CO::getResistance() {
   int val = analogRead(_pin);
   return ((1023./(float)val) - 1.)*_rload;
 }
@@ -79,7 +79,7 @@ float MQ135::getResistance() {
 @return The corrected sensor resistance kOhm
 */
 /**************************************************************************/
-float MQ135::getCorrectedResistance(float t, float h) {
+float MQ135-CO::getCorrectedResistance(float t, float h) {
   return getResistance()/getCorrectionFactor(t, h);
 }
 
@@ -90,7 +90,7 @@ float MQ135::getCorrectedResistance(float t, float h) {
 @return The ppm of CO2 in the air
 */
 /**************************************************************************/
-float MQ135::getPPM() {
+float MQ135-CO::getPPM() {
   return PARA * pow((getResistance()/_rzero), -PARB);
 }
 
@@ -105,7 +105,7 @@ float MQ135::getPPM() {
 @return The ppm of CO2 in the air
 */
 /**************************************************************************/
-float MQ135::getCorrectedPPM(float t, float h) {
+float MQ135-CO::getCorrectedPPM(float t, float h) {
   return PARA * pow((getCorrectedResistance(t, h)/_rzero), -PARB);
 }
 
@@ -116,7 +116,7 @@ float MQ135::getCorrectedPPM(float t, float h) {
 @return The sensor resistance RZero in kOhm
 */
 /**************************************************************************/
-float MQ135::getRZero() {
+float MQ135-CO::getRZero() {
   return getResistance() * pow((ATMOCO2/PARA), (1./PARB));
 }
 
@@ -131,6 +131,6 @@ float MQ135::getRZero() {
 @return The corrected sensor resistance RZero in kOhm
 */
 /**************************************************************************/
-float MQ135::getCorrectedRZero(float t, float h) {
+float MQ135-CO::getCorrectedRZero(float t, float h) {
   return getCorrectedResistance(t, h) * pow((ATMOCO2/PARA), (1./PARB));
 }
