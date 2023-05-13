@@ -14,6 +14,8 @@ Can be found [here](https://www.olimex.com/Products/Components/Sensors/SNS-MQ135
 
 This type of sensor is used in air quality control equipments for buildings/offices and is suitable for detecting of NH3, NOx, alcohol, Benzene, smoke, CO2, etc.
 
+I recently just add CO calibration for this library.
+
 ## Features
 
 This library has:
